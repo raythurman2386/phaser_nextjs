@@ -6,8 +6,8 @@ import { gameObjectsToObjectPoints } from "@/game/helpers/gameobject-to-object-p
 export class Level1 extends Scene {
     private map!: Tilemaps.Tilemap;
     private tileset!: Tilemaps.Tileset;
-    private wallsLayer!;
-    private groundLayer!;
+    private wallsLayer!: Tilemaps.LayerData;
+    private groundLayer!: Tilemaps.LayerData;
     private player!: Player;
     private chests!: Phaser.GameObjects.Sprite[];
 
