@@ -8,3 +8,9 @@ export enum GAME_STATUS {
     WIN,
     LOSE,
 }
+
+export enum SCORE_OPERATIONS {
+    INCREASE,
+    DECREASE,
+    SET_VALUE,
+}

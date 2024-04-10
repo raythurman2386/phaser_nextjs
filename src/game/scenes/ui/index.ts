@@ -1,6 +1,10 @@
 import { Scene } from "phaser";
-import { Score, ScoreOperations } from "../../classes/score";
-import { EVENTS_NAME, GAME_STATUS } from "@/game/utils/constants";
+import { Score } from "../../classes/score";
+import {
+    EVENTS_NAME,
+    GAME_STATUS,
+    SCORE_OPERATIONS,
+} from "@/game/utils/constants";
 import { Text } from "@/game/classes/text";
 import { gameConfig } from "@/game/main";
 
@@ -15,7 +19,7 @@ export class UIScene extends Scene {
 
         // Loot handler
         this.chestLootHandler = () => {
-            this.score.changeValue(ScoreOperations.INCREASE, 10);
+            this.score.changeValue(SCORE_OPERATIONS.INCREASE, 10);
             if (this.score.getValue() === gameConfig.winScore) {
                 this.game.events.emit(EVENTS_NAME.gameEnd, "WIN");
             }

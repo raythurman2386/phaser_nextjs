@@ -1,10 +1,5 @@
+import { SCORE_OPERATIONS } from "../utils/constants";
 import { Text } from "./text";
-
-export enum ScoreOperations {
-    INCREASE,
-    DECREASE,
-    SET_VALUE,
-}
 
 export class Score extends Text {
     private scoreValue: number;
@@ -14,15 +9,15 @@ export class Score extends Text {
         this.scoreValue = initScore;
     }
 
-    public changeValue(operation: ScoreOperations, value: number): void {
+    public changeValue(operation: SCORE_OPERATIONS, value: number): void {
         switch (operation) {
-            case ScoreOperations.INCREASE:
+            case SCORE_OPERATIONS.INCREASE:
                 this.scoreValue += value;
                 break;
-            case ScoreOperations.DECREASE:
+            case SCORE_OPERATIONS.DECREASE:
                 this.scoreValue -= value;
                 break;
-            case ScoreOperations.SET_VALUE:
+            case SCORE_OPERATIONS.SET_VALUE:
                 this.scoreValue = value;
                 break;
             default:
