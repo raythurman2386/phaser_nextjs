@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { EVENTS_NAME } from "../utils/constants";
+import { EVENTS_NAME, GAME_STATUS } from "../utils/constants";
 import { Actor } from "./actor";
 import { Text } from "./text";
 
@@ -37,6 +37,10 @@ export class Player extends Actor {
         )
             .setFontSize(12)
             .setOrigin(0.8, 0.5);
+
+        this.on("destroy", () => {
+            this.keySpace.removeAllListeners();
+        });
     }
 
     update(): void {
@@ -88,6 +92,10 @@ export class Player extends Actor {
 
     public getDamage(value?: number): void {
         super.getDamage(value);
+        if (this.hp <= 0) {
+            this.scene.game.events.emit(EVENTS_NAME.gameEnd, GAME_STATUS.LOSE);
+        }
+
         this.hpValue.setText(this.hp.toString());
     }
 }

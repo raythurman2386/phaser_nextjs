@@ -1,11 +1,16 @@
 import { Game, Types } from "phaser";
 import { LoadingScene, Level1, UIScene } from "./scenes";
 
-const gameConfig: Types.Core.GameConfig = {
+type GameConfigExtended = Types.Core.GameConfig & {
+    winScore: number;
+};
+
+export const gameConfig: GameConfigExtended = {
     title: "Kingdom Knight",
     type: Phaser.WEBGL,
     parent: "game",
     backgroundColor: "#351f1b",
+    winScore: 40,
     scale: {
         mode: Phaser.Scale.ScaleModes.NONE,
         width: window.innerWidth,
