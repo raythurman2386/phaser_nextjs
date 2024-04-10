@@ -1,5 +1,5 @@
 import { Game, Types } from "phaser";
-import { LoadingScene } from "./scenes";
+import { LoadingScene, Level1 } from "./scenes";
 
 const gameConfig: Types.Core.GameConfig = {
     title: "Kingdom Knight",
@@ -26,7 +26,7 @@ const gameConfig: Types.Core.GameConfig = {
     audio: {
         disableWebAudio: false,
     },
-    scene: [LoadingScene],
+    scene: [LoadingScene, Level1],
 };
 
 const StartGame = (parent: string) => {
