@@ -30,8 +30,8 @@ export class UIScene extends Scene {
                 this.game.scale.width / 2,
                 this.game.scale.height * 0.4,
                 status === GAME_STATUS.LOSE
-                    ? `WASTED\NCLICK TO RESTART`
-                    : `YOU ROCK!\NCLICK TO RESTART`,
+                    ? "WASTED\nCLICK TO RESTART"
+                    : "YOU ROCK!\nCLICK TO RESTART",
             )
                 .setAlign("center")
                 .setColor(status === GAME_STATUS.LOSE ? "#ff0000" : "#ffffff");
