@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Scene, Tilemaps } from "phaser";
 import { Player } from "../../classes/player";
+import { gameObjectsToObjectPoints } from "@/game/helpers/gameobject-to-object-point";
 
 export class Level1 extends Scene {
     private map!: Tilemaps.Tilemap;
@@ -8,9 +9,19 @@ export class Level1 extends Scene {
     private wallsLayer!;
     private groundLayer!;
     private player!: Player;
+    private chests!: Phaser.GameObjects.Sprite[];
 
     constructor() {
         super("level-1-scene");
+    }
+
+    private initCamera(): void {
+        this.cameras.main.setSize(
+            this.game.scale.width,
+            this.game.scale.height
+        );
+        this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
+        this.cameras.main.setZoom(2);
     }
 
     private initMap(): void {
@@ -31,9 +42,28 @@ export class Level1 extends Scene {
         );
     }
 
+    private initChests(): void {
+        const chestPoints = gameObjectsToObjectPoints(
+            this.map.filterObjects("Chests", (obj) => obj.name === "ChestPoint")
+        );
+        this.chests = chestPoints.map((chestPoint) =>
+            this.physics.add
+                .sprite(chestPoint.x, chestPoint.y, "dungeon_tiles_spr", 595)
+                .setScale(1.5)
+        );
+        this.chests.forEach((chest) => {
+            this.physics.add.overlap(this.player, chest, (_player, chest) => {
+                chest.destroy();
+                this.cameras.main.flash();
+            });
+        });
+    }
+
     create(): void {
         this.initMap();
         this.player = new Player(this, 100, 100);
+        this.initCamera();
+        this.initChests();
         this.physics.add.collider(this.player, this.wallsLayer);
     }
 
