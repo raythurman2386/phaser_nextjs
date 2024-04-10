@@ -29,16 +29,30 @@ export class UIScene extends Scene {
         this.gameEndHandler = (status) => {
             this.cameras.main.setBackgroundColor("rgba(0,0,0,0.6)");
             this.game.scene.pause("level-1-scene");
-            this.gameEndPhrase = new Text(
-                this,
-                this.game.scale.width / 2,
-                this.game.scale.height * 0.4,
-                status === GAME_STATUS.LOSE
-                    ? "WASTED\nCLICK TO RESTART"
-                    : "YOU ROCK!\nCLICK TO RESTART",
-            )
-                .setAlign("center")
-                .setColor(status === GAME_STATUS.LOSE ? "#ff0000" : "#ffffff");
+
+            // Check the game status
+            if (status === GAME_STATUS.LOSE) {
+                // Game Over
+                this.gameEndPhrase = new Text(
+                    this,
+                    this.game.scale.width / 2,
+                    this.game.scale.height * 0.4,
+                    "WASTED\nCLICK TO RESTART",
+                )
+                    .setAlign("center")
+                    .setColor("#ff0000");
+            } else {
+                // Level Complete
+                this.gameEndPhrase = new Text(
+                    this,
+                    this.game.scale.width / 2,
+                    this.game.scale.height * 0.4,
+                    "YOU ROCK!\nCLICK TO CONTINUE",
+                )
+                    .setAlign("center")
+                    .setColor("#ffffff");
+            }
+
             this.gameEndPhrase.setPosition(
                 this.game.scale.width / 2 - this.gameEndPhrase.width / 2,
                 this.game.scale.height * 0.4,
@@ -50,8 +64,17 @@ export class UIScene extends Scene {
                     this.chestLootHandler,
                 );
                 this.game.events.off(EVENTS_NAME.gameEnd, this.gameEndHandler);
-                this.scene.get("level-1-scene").scene.restart();
-                this.scene.restart();
+
+                if (status === GAME_STATUS.LOSE) {
+                    // Restart the game from Level1
+                    this.scene.get("level-1-scene").scene.restart();
+                    this.scene.restart();
+                } else {
+                    // Transition to Level2
+                    this.scene.stop("level-1-scene");
+                    this.scene.start("level-2-scene");
+                    this.scene.start("ui-scene");
+                }
             });
         };
     }

@@ -1,0 +1,14 @@
+{ "columns":7,
+ "image":"..\/..\/..\/..\/..\/..\/..\/Downloads\/outdoorandforesttileset\/Outdoor and Forest Tileset\/Tilesets\/Tileset-1.png",
+ "imageheight":192,
+ "imagewidth":112,
+ "margin":0,
+ "name":"Tileset-1",
+ "spacing":0,
+ "tilecount":84,
+ "tiledversion":"1.10.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}
