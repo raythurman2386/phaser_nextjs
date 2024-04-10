@@ -1,7 +1,8 @@
 // @ts-nocheck
 import { Scene, Tilemaps } from "phaser";
 import { Player } from "../../classes/player";
-import { gameObjectsToObjectPoints } from "@/game/helpers/gameobject-to-object-point";
+import { gameObjectsToObjectPoints } from "@/game/utils/gameobject-to-object-point";
+import { EVENTS_NAME } from "@/game/utils/constants";
 
 export class Level1 extends Scene {
     private map!: Tilemaps.Tilemap;
@@ -18,7 +19,7 @@ export class Level1 extends Scene {
     private initCamera(): void {
         this.cameras.main.setSize(
             this.game.scale.width,
-            this.game.scale.height
+            this.game.scale.height,
         );
         this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
         this.cameras.main.setZoom(2);
@@ -38,21 +39,25 @@ export class Level1 extends Scene {
             0,
             0,
             this.wallsLayer.width,
-            this.wallsLayer.height
+            this.wallsLayer.height,
         );
     }
 
     private initChests(): void {
         const chestPoints = gameObjectsToObjectPoints(
-            this.map.filterObjects("Chests", (obj) => obj.name === "ChestPoint")
+            this.map.filterObjects(
+                "Chests",
+                (obj) => obj.name === "ChestPoint",
+            ),
         );
         this.chests = chestPoints.map((chestPoint) =>
             this.physics.add
                 .sprite(chestPoint.x, chestPoint.y, "dungeon_tiles_spr", 595)
-                .setScale(1.5)
+                .setScale(1.5),
         );
         this.chests.forEach((chest) => {
             this.physics.add.overlap(this.player, chest, (_player, chest) => {
+                this.game.events.emit(EVENTS_NAME.chestLoot);
                 chest.destroy();
                 this.cameras.main.flash();
             });

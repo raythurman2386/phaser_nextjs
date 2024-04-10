@@ -12,7 +12,7 @@ type ObjectPoint = {
 };
 
 export const gameObjectsToObjectPoints = (
-    gameObjects: any[]
+    gameObjects: any[],
 ): ObjectPoint[] => {
     return gameObjects.map((gameObject) => gameObject as ObjectPoint);
 };

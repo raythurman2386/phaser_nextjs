@@ -13,7 +13,7 @@ export class LoadingScene extends Scene {
             {
                 frameWidth: 16,
                 frameHeight: 16,
-            }
+            },
         );
         this.load.image({
             key: "tiles",
@@ -24,12 +24,13 @@ export class LoadingScene extends Scene {
         this.load.atlas(
             "a-king",
             "./spritesheets/a-king.png",
-            "spritesheets/a-king_atlas.json"
+            "spritesheets/a-king_atlas.json",
         );
     }
 
     create(): void {
         console.log("Loading scene was created");
         this.scene.start("level-1-scene");
+        this.scene.start("ui-scene");
     }
 }

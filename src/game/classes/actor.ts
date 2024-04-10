@@ -7,7 +7,7 @@ export class Actor extends Physics.Arcade.Sprite {
         x: number,
         y: number,
         texture: string,
-        frame?: string | number
+        frame?: string | number,
     ) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
