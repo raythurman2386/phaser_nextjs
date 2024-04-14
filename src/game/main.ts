@@ -1,5 +1,5 @@
 import { Game, Types } from "phaser";
-import { LoadingScene, Level1, UIScene } from "./scenes";
+import { LoadingScene, Level1, UIScene, MainMenu, HighScores } from "./scenes";
 
 type GameConfigExtended = Types.Core.GameConfig & {
     winScore: number;
@@ -11,6 +11,8 @@ export const gameConfig: GameConfigExtended = {
     parent: "game",
     backgroundColor: "#351f1b",
     winScore: 40,
+    // height: "",
+    // width: "",
     scale: {
         mode: Phaser.Scale.ScaleModes.NONE,
         width: window.innerWidth,
@@ -31,7 +33,7 @@ export const gameConfig: GameConfigExtended = {
     audio: {
         disableWebAudio: false,
     },
-    scene: [LoadingScene, Level1, UIScene],
+    scene: [LoadingScene, MainMenu, HighScores, Level1, UIScene],
 };
 
 const StartGame = (parent: string) => {
